@@ -13,6 +13,7 @@ public class WorkdayCalendar : IWorkdayCalendar
 {
     private readonly List<DateTime> _holidays = new List<DateTime>();
     private readonly List<RecurringHoliday> _recurringHolidays = new List<RecurringHoliday>();
+    private WorkdayHours _workdayHours = new WorkdayHours();
     
     
     public void SetHoliday(DateTime date)
@@ -47,8 +48,9 @@ public class WorkdayCalendar : IWorkdayCalendar
     
     public void SetWorkdayStartAndStop(int startHours, int startMinutes, int stopHours, int stopMinutes)
     {
-        throw new NotImplementedException();
+        _workdayHours = new WorkdayHours(startHours, stopHours, startMinutes, stopMinutes);
     }
+
 
     public DateTime GetWorkdayIncrement(DateTime startDate, decimal incrementInWorkdays)
     {
