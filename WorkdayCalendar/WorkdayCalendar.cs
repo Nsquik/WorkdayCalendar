@@ -54,6 +54,11 @@ public class WorkdayCalendar : IWorkdayCalendar
 
     public DateTime GetWorkdayIncrement(DateTime startDate, decimal incrementInWorkdays)
     {
-        throw new NotImplementedException();
+        int daysToAdd = (int) incrementInWorkdays;
+        double hoursToAdd = (Decimal.ToDouble(incrementInWorkdays) - daysToAdd) * _workdayHours.HoursInWeekday;
+
+        startDate = startDate.AddValidWorkdays(this, daysToAdd);
+        
+        return startDate;
     }
 }
