@@ -19,6 +19,19 @@ public static class DateTimeExtensions
 
         return !calendar.GetHolidays().Any(h => h.Month == date.Month && h.Day == date.Day && h.Year == date.Year);
     }
+    
+    private static DateTime NextValidWorkday(this DateTime startDate, WorkdayCalendar calendar, bool direction)
+    {
+        bool isValid = startDate.IsValidWorkday(calendar);
+        
+        while (!isValid)
+        {
+            startDate = startDate.AddDays(direction ? 1 : -1);
+            isValid = startDate.IsValidWorkday(calendar);
+        }
+
+        return startDate;
+    }
 
     public static DateTime AddValidWorkdays(this DateTime date, WorkdayCalendar calendar, int daysToAdd)
     {
@@ -36,4 +49,7 @@ public static class DateTimeExtensions
 
         return date;
     }
+    
+    
+
 }
