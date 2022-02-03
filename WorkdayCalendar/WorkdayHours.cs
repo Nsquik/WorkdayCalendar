@@ -2,12 +2,13 @@
 
 public class WorkdayHours
 {
-    public int StartHour;
-    public int EndHour;
+    private int _startHour;
+    private int _endHour;
 
-    public int StartMinute;
-    public int EndMinute;
+    private int _startMinute;
+    private int _endMinute;
 
+    public readonly double HoursInWeekday;
 
     public WorkdayHours()
     {
@@ -16,10 +17,15 @@ public class WorkdayHours
     
     public WorkdayHours(int startHour, int endHour, int startMinute, int endMinute)
     {
-        StartHour = startHour;
-        EndHour = endHour;
-        StartMinute = startMinute;
-        EndMinute = endMinute;
+        DateTime localDate = DateTime.Now;
+        _startHour = startHour;
+        _endHour = endHour;
+        _startMinute = startMinute;
+        _endMinute = endMinute;
+        
+        HoursInWeekday =  (new DateTime(localDate.Year, localDate.Month, localDate.Day, endHour, endMinute,
+            0) - new DateTime(localDate.Year, localDate.Month, localDate.Day, startHour,
+            startMinute, 0)).TotalHours;
     }
 
 }
