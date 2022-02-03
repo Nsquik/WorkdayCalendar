@@ -51,5 +51,17 @@ public static class DateTimeExtensions
     }
     
     
+    public static DateTime AddValidWorkhours(this DateTime startDate, WorkdayCalendar calendar, bool canAddDirectly, bool direction, double workHours)
+    {
+        startDate = startDate.NextValidWorkday(calendar, direction);
+        
+
+
+        if (canAddDirectly)
+        {
+            return startDate.AddHours(workHours);
+        } 
+        return startDate = startDate.NextValidWorkday(calendar, direction);
+    }
 
 }
