@@ -19,4 +19,21 @@ public static class DateTimeExtensions
 
         return !calendar.GetHolidays().Any(h => h.Month == date.Month && h.Day == date.Day && h.Year == date.Year);
     }
+
+    public static DateTime AddValidWorkdays(this DateTime date, WorkdayCalendar calendar, int daysToAdd)
+    {
+        // daysToAdd can be a negative number
+        int counter = Math.Abs((int) daysToAdd);
+        
+        while (counter > 0)
+        {
+            date = date.AddDays(daysToAdd / Math.Abs(daysToAdd));
+            if (date.IsValidWorkday(calendar))
+            {
+                counter -= 1;
+            }
+        }
+
+        return date;
+    }
 }
