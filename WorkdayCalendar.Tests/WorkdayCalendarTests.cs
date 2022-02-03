@@ -93,5 +93,77 @@ public class Tests
             incrementedDate.ToString(format));
 
     }
+    
+        [Test]
+    public void Calendar_Extract_OutsideScope()
+    {
+        var start = new DateTime(2004, 5, 24, 18, 5, 0);
+        var increment = -5.5m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("24-05-2004 18:05 with an addition of -5,5 work days is 14-05-2004 12:00",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+
+    }
+    
+    [Test]
+    public void Calendar_Increment_OutsideScope()
+    {
+        var start = new DateTime(2004, 5, 24, 19, 03, 0);
+        var increment =  44.723656m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("24-05-2004 19:03 with an addition of 44,723656 work days is 27-07-2004 13:47",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+
+    }
+    
+    
+    
+    [Test]
+    public void Calendar_Extract_OutsideScope_V2()
+    {
+        var start = new DateTime(2004, 5, 24, 18, 03, 0);
+        var increment = -6.7470217m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("24-05-2004 18:03 with an addition of -6,7470217 work days is 13-05-2004 10:02",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+
+    }
+    
+    
+
+    
+    [Test]
+    public void Calendar_Increment_WithinScope_V2()
+    {
+        var start = new DateTime(2004, 5, 24, 7, 03, 0);
+        var increment =  8.276628m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("24-05-2004 07:03 with an addition of 8,276628 work days is 04-06-2004 10:12",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+    }
 
 }
