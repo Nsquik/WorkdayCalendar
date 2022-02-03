@@ -73,5 +73,22 @@ public class Tests
             Assert.AreEqual(e.Message, "Holiday already exists");
         }
     }
+    
+    [Test]
+    public void Calendar_Increment_WithinScope()
+    {
+        var start = new DateTime(2004, 5, 24, 8, 03, 0);
+        var increment = 12.782709m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("24-05-2004 08:03 with an addition of 12,782709 work days is 10-06-2004 14:18",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+
+    }
 
 }
