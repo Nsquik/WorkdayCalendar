@@ -63,13 +63,16 @@ public class WorkdayCalendar : IWorkdayCalendar
 
 
         
-        // Move hours to valid when not within WorkingHours.
-        if (!_workdayTimes.CheckIfWorkingHour(startDate))
+        // Move hours to valid workhours when not within WorkingHours.
+        if (!_workdayHours.CheckIfWorkingHour(startDate))
         {
-            startDate = _workdayTimes.NextWorkdayHour(startDate, direction);
+            startDate = _workdayHours.NextWorkday(startDate, direction);
         }
 
+        // Add workdays 
         startDate = startDate.AddValidWorkdays(this, daysToAdd);
+        
+        // Add rest of workhours
         startDate = startDate.AddValidWorkhours(this, canAddDirectly, direction, hoursToAdd);
         
         return startDate;
