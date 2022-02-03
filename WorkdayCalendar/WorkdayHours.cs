@@ -43,5 +43,26 @@ public class WorkdayHours
         return date <= new DateTime(date.Year, date.Month, date.Day, _endHour, _endMinute, 0) &&
                date >= new DateTime(date.Year, date.Month, date.Day, _startHour, _startMinute, 0);
     }
+    
+    public DateTime NextWorkday(DateTime startDate, bool direction)
+    {
+        if (direction)
+        {
+            if (startDate.Hour > _endHour)
+            {
+                startDate = startDate.AddDays(1);
+            }
+            startDate = new DateTime(startDate.Year,startDate.Month, startDate.Day, _startHour, _startMinute, 0);
+        }
+        else
+        {
+            if (startDate.Hour < _startHour)
+            {
+                startDate = startDate.AddDays(-1);
+            }
+            startDate = new DateTime(startDate.Year,startDate.Month, startDate.Day, _endHour, _endMinute, 0);
+        }
+        return startDate;
+    }
 
 }

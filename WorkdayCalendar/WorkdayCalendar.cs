@@ -62,6 +62,12 @@ public class WorkdayCalendar : IWorkdayCalendar
         bool canAddDirectly = direction ? difference > hoursToAdd : hoursToAdd > difference;
 
 
+        
+        // Move hours to valid when not within WorkingHours.
+        if (!_workdayTimes.CheckIfWorkingHour(startDate))
+        {
+            startDate = _workdayTimes.NextWorkdayHour(startDate, direction);
+        }
 
         startDate = startDate.AddValidWorkdays(this, daysToAdd);
         startDate = startDate.AddValidWorkhours(this, canAddDirectly, direction, hoursToAdd);
