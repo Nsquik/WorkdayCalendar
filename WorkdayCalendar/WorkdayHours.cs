@@ -48,7 +48,7 @@ public class WorkdayHours
     {
         if (direction)
         {
-            if (startDate.Hour > _endHour)
+            if (startDate.Hour >= _endHour)
             {
                 startDate = startDate.AddDays(1);
             }
@@ -56,7 +56,7 @@ public class WorkdayHours
         }
         else
         {
-            if (startDate.Hour < _startHour)
+            if (startDate.Hour <= _startHour)
             {
                 startDate = startDate.AddDays(-1);
             }

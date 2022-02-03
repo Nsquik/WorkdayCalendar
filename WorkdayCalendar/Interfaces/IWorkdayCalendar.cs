@@ -1,6 +1,6 @@
 ﻿namespace WorkdayCalendar.Interfaces;
 
-public interface IWorkdayCalendar
+public interface IWorkdayCalendarService
 {
     void SetHoliday(DateTime date);
 

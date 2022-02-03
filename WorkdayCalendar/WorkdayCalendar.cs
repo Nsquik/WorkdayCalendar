@@ -9,7 +9,7 @@ public class RecurringHoliday
 }
 
 
-public class WorkdayCalendar : IWorkdayCalendar
+public class WorkdayCalendarService : IWorkdayCalendarService
 {
     private readonly List<DateTime> _holidays = new List<DateTime>();
     private readonly List<RecurringHoliday> _recurringHolidays = new List<RecurringHoliday>();
@@ -61,19 +61,18 @@ public class WorkdayCalendar : IWorkdayCalendar
         double difference = direction ? _workdayHours.GetDifferenceWithEndHour(startDate) : _workdayHours.GetDifferenceWithStartHour(startDate);
         bool canAddDirectly = direction ? difference > hoursToAdd : hoursToAdd > difference;
 
-
         
         // Move hours to valid workhours when not within WorkingHours.
         if (!_workdayHours.CheckIfWorkingHour(startDate))
         {
             startDate = _workdayHours.NextWorkday(startDate, direction);
         }
-
+        
         // Add workdays 
-        startDate = startDate.AddValidWorkdays(this, daysToAdd);
+        startDate = startDate.AddValidWorkdays(this, daysToAdd, direction);
         
         // Add rest of workhours
-        startDate = startDate.AddValidWorkhours(this, canAddDirectly, direction, hoursToAdd);
+        startDate = startDate.AddValidWorkhours(this, _workdayHours,canAddDirectly, direction, hoursToAdd);
         
         return startDate;
     }

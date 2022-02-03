@@ -6,13 +6,13 @@ namespace WorkdayCalendar.Tests;
 
 public class Tests
 {
-    private WorkdayCalendar _workdayCalendar;
+    private WorkdayCalendarService _workdayCalendar;
 
     
     [SetUp]
     public void Setup()
     {
-        _workdayCalendar = new WorkdayCalendar();
+        _workdayCalendar = new WorkdayCalendarService();
         _workdayCalendar.SetWorkdayStartAndStop(8, 0, 16, 0);
         _workdayCalendar.SetRecurringHoliday(5, 17);
         _workdayCalendar.SetHoliday(new DateTime(2004, 5, 27)); 
@@ -165,5 +165,77 @@ public class Tests
             " work days is " +
             incrementedDate.ToString(format));
     }
+    
+    [Test]
+    public void Calendar_Increment_WithinScope_Weekend()
+    {
+        var start = new DateTime(2022, 2, 4, 8, 00, 0);
+        var increment =  1.5m;
+        string format = "dd-MM-yyyy HH:mm"; 
 
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("04-02-2022 08:00 with an addition of 1,5 work days is 07-02-2022 12:00",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+    }
+
+    
+    [Test]
+    public void Calendar_Increment_OutsideScope_Weekend()
+    {
+        var start = new DateTime(2022, 2, 4, 16, 01, 0);
+        var increment =  1.5m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("04-02-2022 16:01 with an addition of 1,5 work days is 08-02-2022 12:00",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+    }
+    
+    [Test]
+    public void Calendar_Increment_OutsideScope_Weekend_v2()
+    {
+        var start = new DateTime(2022, 2, 4, 7, 01, 0);
+        var increment =  1.5m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("04-02-2022 07:01 with an addition of 1,5 work days is 07-02-2022 12:00",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+    }
+    
+    [Test]
+    public void Calendar_Extract_WithinScope_Weekend()
+    {
+        var start = new DateTime(2022, 2, 7, 8, 00, 0);
+        var increment =  -1.5m;
+        string format = "dd-MM-yyyy HH:mm"; 
+
+        var incrementedDate = _workdayCalendar.GetWorkdayIncrement(start, increment);
+        Assert.AreEqual("07-02-2022 08:00 with an addition of -1,5 work days is 03-02-2022 12:00",
+            start.ToString(format) +
+            " with an addition of " +
+            increment +
+            " work days is " +
+            incrementedDate.ToString(format));
+    }
+    
+    
+   
+    
+    
+
+    
+   
 }
