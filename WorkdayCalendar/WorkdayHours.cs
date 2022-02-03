@@ -37,5 +37,11 @@ public class WorkdayHours
     {
         return (new DateTime(date.Year, date.Month, date.Day, _startHour, _startMinute, 0) - date).TotalHours;
     }
+    
+    public bool CheckIfWorkingHour(DateTime date)
+    {
+        return date <= new DateTime(date.Year, date.Month, date.Day, _endHour, _endMinute, 0) &&
+               date >= new DateTime(date.Year, date.Month, date.Day, _startHour, _startMinute, 0);
+    }
 
 }
