@@ -51,7 +51,7 @@ public static class DateTimeExtensions
     }
     
     
-    public static DateTime AddValidWorkhours(this DateTime startDate, WorkdayCalendar calendar, bool canAddDirectly, bool direction, double workHours)
+    public static DateTime AddValidWorkhours(this DateTime startDate, WorkdayCalendar calendar, bool canAddDirectly, bool direction, double hoursToAdd)
     {
         startDate = startDate.NextValidWorkday(calendar, direction);
         
@@ -59,7 +59,7 @@ public static class DateTimeExtensions
 
         if (canAddDirectly)
         {
-            return startDate.AddHours(workHours);
+            return startDate.AddHours(hoursToAdd);
         } 
         return startDate = startDate.NextValidWorkday(calendar, direction);
     }

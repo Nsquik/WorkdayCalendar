@@ -13,6 +13,9 @@ public class Tests
     public void Setup()
     {
         _workdayCalendar = new WorkdayCalendar();
+        _workdayCalendar.SetWorkdayStartAndStop(8, 0, 16, 0);
+        _workdayCalendar.SetRecurringHoliday(5, 17);
+        _workdayCalendar.SetHoliday(new DateTime(2004, 5, 27)); 
     }
 
     [Test]

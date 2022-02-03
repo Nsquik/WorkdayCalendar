@@ -56,8 +56,15 @@ public class WorkdayCalendar : IWorkdayCalendar
     {
         int daysToAdd = (int) incrementInWorkdays;
         double hoursToAdd = (Decimal.ToDouble(incrementInWorkdays) - daysToAdd) * _workdayHours.HoursInWeekday;
+        bool direction = incrementInWorkdays > 0;
+        
+        double difference = direction ? _workdayHours.GetDifferenceWithEndHour(startDate) : _workdayHours.GetDifferenceWithStartHour(startDate);
+        bool canAddDirectly = direction ? difference > hoursToAdd : hoursToAdd > difference;
+
+
 
         startDate = startDate.AddValidWorkdays(this, daysToAdd);
+        startDate = startDate.AddValidWorkhours(this, canAddDirectly, direction, hoursToAdd);
         
         return startDate;
     }
