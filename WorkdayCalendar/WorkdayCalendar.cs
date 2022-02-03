@@ -17,14 +17,34 @@ public class WorkdayCalendar : IWorkdayCalendar
     
     public void SetHoliday(DateTime date)
     {
-        throw new NotImplementedException();
+        bool foundSameDate = _holidays.Any((d) => d.Date == date);
+        if (foundSameDate)
+            throw new Exception("Holiday already exists");
+        
+        _holidays.Add(date);
     }
-
+    
+    public List<DateTime> GetHolidays()
+    {
+        return _holidays;
+    }
+    
     public void SetRecurringHoliday(int month, int day)
     {
-        throw new NotImplementedException();
+        bool foundSameDate = _recurringHolidays.Any(x => x.Day == day && x.Month == month);
+        if (foundSameDate)
+            throw new Exception("Holiday already exists");
+        
+        _recurringHolidays.Add(new RecurringHoliday(){Day = day, Month = month});
+    }
+    
+    public List<RecurringHoliday> GetRecurringHolidays()
+    {
+        return _recurringHolidays;
     }
 
+
+    
     public void SetWorkdayStartAndStop(int startHours, int startMinutes, int stopHours, int stopMinutes)
     {
         throw new NotImplementedException();
