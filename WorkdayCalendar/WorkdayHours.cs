@@ -27,5 +27,15 @@ public class WorkdayHours
             0) - new DateTime(localDate.Year, localDate.Month, localDate.Day, startHour,
             startMinute, 0)).TotalHours;
     }
+    
+    public double GetDifferenceWithEndHour(DateTime date)
+    {
+        return (new DateTime(date.Year, date.Month, date.Day, _endHour, _endMinute, 0) - date).TotalHours;
+    }
+    
+    public double GetDifferenceWithStartHour(DateTime date)
+    {
+        return (new DateTime(date.Year, date.Month, date.Day, _startHour, _startMinute, 0) - date).TotalHours;
+    }
 
 }
